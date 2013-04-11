@@ -36,12 +36,14 @@ var FeedReader = {
 	
 	jumpUnread: function(articleid)
 	{
-		window.location.hash = "#" + $("#post-" + articleid).nextAll(".unread").first().attr("id");
+		var next = $("#post-" + articleid).nextAll(".unread");
+		if(next.length > 0) { window.location.hash = "#" + next.first().attr("id");	}
 	},
 	
 	jumpUnreadBack: function(articleid)
 	{
-		window.location.hash = "#" + $("#post-" + articleid).prevAll(".unread").first().attr("id");
+		var prev = $("#post-" + articleid).prevAll(".unread");
+		if(prev.length > 0) { window.location.hash = "#" + prev.first().attr("id");	}
 	}
 };
 
@@ -73,8 +75,10 @@ document.onkeypress = function(event) {
 			var active = $(".active").first();
 			FeedReader.jumpUnread(pid(active));
 			// Make sure the focus is moved even if the window is not scrolled
-			active.removeClass("active");
-			active.nextAll(".unread").first().addClass("active");
+			if(active.nextAll(".unread").length > 0) {
+				active.removeClass("active");
+				active.nextAll(".unread").first().addClass("active");
+			}
 			break;
 		case 105:
 		case 73:
@@ -88,8 +92,10 @@ document.onkeypress = function(event) {
 			var active = $(".active").first();
 			FeedReader.jumpUnreadBack(pid(active));
 			// Make sure the focus is moved even if the window is not scrolled
-			active.removeClass("active");
-			active.prevAll(".unread").first().addClass("active");
+			if(active.prevAll(".unread").length > 0) {
+				active.removeClass("active");
+				active.prevAll(".unread").first().addClass("active");
+			}
 			break;
 		case 109:
 		case 77:
