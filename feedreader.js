@@ -18,7 +18,6 @@ var FeedReader = {
 
 	changeStatus: function(data, articleid)
 	{
-	console.log(data);
 		switch(data.trim())
 		{
 			case "read":
@@ -63,11 +62,13 @@ document.onkeypress = function(event) {
 	switch(event.keyCode) {
 		// On non-QWERT(Y|Z)-keyboards this might suck
 		case 117:
+		case 95:
 			// u = mark read & next
 			if($(".active").first().hasClass("unread")) {
 				FeedReader.toggle(pid($(".active").first()));
 			}
 		case 106:
+		case 74:
 			// j = next
 			var active = $(".active").first();
 			FeedReader.jumpUnread(pid(active));
@@ -76,11 +77,13 @@ document.onkeypress = function(event) {
 			active.nextAll(".unread").first().addClass("active");
 			break;
 		case 105:
+		case 73:
 			// i = mark read & previous
 			if($(".active").first().hasClass("unread")) {
 				FeedReader.toggle(pid($(".active").first()));
 			}
 		case 107:
+		case 75:
 			// k = previous
 			var active = $(".active").first();
 			FeedReader.jumpUnreadBack(pid(active));
@@ -89,6 +92,7 @@ document.onkeypress = function(event) {
 			active.prevAll(".unread").first().addClass("active");
 			break;
 		case 109:
+		case 77:
 			// m = toggle read
 			FeedReader.toggle(pid($(".active").first()));
 			break;
@@ -99,3 +103,7 @@ function pid(jqobject) {
 	return jqobject.attr("id").substr(5);
 	//return jqobject.attr("id").substr(jqobject.attr("id").lastIndexOf("-") + 1);
 }
+
+$(document).ready(function() {
+	$(".post").first().addClass("active");
+});
