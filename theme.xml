@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pluggable type="theme">
+	<name>Kusoma</name>
+	<parent>Wazi</parent>
+	<license url="http://www.apache.org/licenses/LICENSE-2.0.html">Apache Software License 2.0</license>
+	<author url="http://habariproject.org/">The Habari Community</author>
+	<version>1.0</version>
+	<template_engine>rawphpengine</template_engine>
+	<description><![CDATA[Derivation of Wazi, with modified layout using more width for sites with a lot of content.]]></description>
+	
+	<areas>
+		<area name="nav" title="Navigation">
+			<description><![CDATA[The navigation area]]></description>
+		</area>
+		<area name="top_content" title="Top Content">
+			<description><![CDATA[Above the main content area, but below the header navigation]]></description>
+		</area>
+		<area name="sidebar" title="Sidebar">
+			<description><![CDATA[The sidebar area]]></description>
+		</area>
+		<area name="footer" title="Footer">
+			<description><![CDATA[The footer area]]></description>
+		</area>
+	</areas>
+</pluggable>

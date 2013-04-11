@@ -1,0 +1,16 @@
+/* Stuff to display more content */
+html { font-size: 90%; }
+
+/* Fixes for Wazi */
+.block   { word-wrap:break-word; overflow: hidden; }
+
+/* Markup for the stuff we added */
+.post { opacity: .60; }
+.post.active { opacity: 1; }
+.statusimg { width: 16px; height: 16px; }
+.post.unread .statusimg { content:url('unread.png'); }
+.post.read .statusimg { content:url('read.png'); }
+.post.read h1 { font-weight: normal; }
+
+/* Markup to display posts nicer - aka work around poor HTML coming from feeds */
+img  { max-height: 400px; max-width: 400px; }/* @todo make this responsive */
