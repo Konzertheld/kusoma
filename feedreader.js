@@ -47,17 +47,61 @@ var FeedReader = {
 	}
 };
 
+// Scroll logic for marking posts as active
 $(window).scroll(function() {
-	// Move the focus when the window scrolls
-	$(".post").each(function() {
-		// Find the topmost visible element
-		if($(this).offset().top >= $(window).scrollTop()) {
-			// Remove active class from all elements, then add it to the current and stop
-			$(".post.active").each(function() { $(this).removeClass("active"); });
-			$(this).addClass("active");
-			return false;
+	var activepost = $(".post.active").first();
+	if($(window).scrollTop() == 0 && ($(".post").first().offset().top + $(".post").first().height()) > $(window).height()) {
+		// Make sure the focus is always on the top post if the window is scrolled to the very top AND the top post's bottom is not visible.
+		// Fixes probems with POS1/HOME key for large posts and avoids focus jumping for short posts
+		$(".post.active").each(function() { $(this).removeClass("active"); });
+		$(".post").first().addClass("active");
+		return;
+	}
+	if(($(window).scrollTop() + $(window).height() == $(document).height()) && ($(".post").last().offset().top < $(window).scrollTop())) {
+		// Make sure the focus is on the last post if the window is scrolled to the very end AND the last post's top is not visible.
+		// Fixes problems with END key for large posts and avoids focus jumping for short posts
+		$(".post.active").each(function() { $(this).removeClass("active"); });
+		$(".post").last().addClass("active");
+		return;
+	}
+	if(($(window).scrollTop() + $(window).height()) - (activepost.offset().top + activepost.height()) > ($(window).height() / 2)) {
+		// The active post's bottom is visible and has passed more than half of the window's height, move focus
+		if(activepost.next(".post").length > 0) {
+			activepost.removeClass("active");
+			activepost.next(".post").addClass("active");
 		}
-	});
+	}
+	if(($(window).scrollTop() + $(window).height() - activepost.offset().top) < $(window).height() / 2) {
+		// The active post has left the window to the bottom, move focus
+		if(activepost.prev(".post").length > 0) {
+			activepost.removeClass("active");
+			activepost.prev(".post").addClass("active");
+		}
+	}
+	activepost = $(".post.active").first();
+	if(activepost.offset().top + activepost.height() < $(window).scrollTop() || activepost.offset().top > $(window).scrollTop() + $(window).height())  {
+		// The active post has left the visible area completely without triggering one of the other conditions
+		// That happens if you use the HOME or END key and your posts are small. In that case we just figure out a new active post
+		$(".post.active").each(function() { $(this).removeClass("active"); });
+		$(".post").each(function() {
+			if($(this).offset().top > $(window).scrollTop() && $(this).offset().top < $(window).scrollTop() + $(window).height()) {
+				// We found a post that has the top edge in the visible area
+				$(this).addClass("active");
+				return false;
+			}
+		});
+		if($(".post.active").length == 0) {
+			// We did not find a post with the top edge in the visible area, let's look for one with the bottom edge visible
+			// If we did that at the same time the results would be very odd
+			$(".post").each(function() {
+				if($(this).offset().top + $(this).height() < $(window).scrollTop() + $(window).height() && $(this).offset().top + $(this).height() > $(window).scrollTop()) {
+					$(this).addClass("active");
+					return false;
+				}
+			});
+		}
+	}
+	// This is the logic's end. If you manage to get your active post out of sight so that a long post fills the entire view having neither top nor bottom in the view... well, then you're screwed.
 });
 
 document.onkeypress = function(event) {
