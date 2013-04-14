@@ -121,6 +121,8 @@ $(window).scroll(function() {
 });
 
 document.onkeypress = function(event) {
+	// Hold shift key to navigate normal, don't hold shift key to navigate through unread posts only
+	var filter = (event.shiftKey) ? "" : ".unread";
 	switch(event.keyCode) {
 		// On non-QWERT(Y|Z)-keyboards this might suck
 		case 117:
@@ -132,7 +134,7 @@ document.onkeypress = function(event) {
 		case 106:
 		case 74:
 			// j = next
-			var next = $(".post.active").nextAll(".unread").first();
+			var next = $(".post.active").nextAll(filter).first();
 			if(next.length > 0) {
 				$("body,html").animate({scrollTop: next.offset().top - 20}, 100, 'linear', function() {
 					FeedReader.focus(next);
@@ -149,7 +151,7 @@ document.onkeypress = function(event) {
 		case 107:
 		case 75:
 			// k = previous
-			var prev = $(".post.active").prevAll(".unread").first();
+			var prev = $(".post.active").prevAll(filter).first();
 			if(prev.length > 0) {
 				$("body,html").animate({scrollTop: prev.offset().top - 20}, 100, 'linear', function() {
 					FeedReader.focus(prev);
