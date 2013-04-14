@@ -1,6 +1,9 @@
 /* Stuff to display more content */
 html { font-size: 90%; }
 
+/* Make the content a bit and the sidebar a large bit wider on wide screens*/
+@media only screen and (min-width:1061px){#wrapper{width:1060px;} #posts{display:inline;float:left;width:730px;margin:0 10px;} #sidebar{display:inline;float:left;width:290px;margin:0 10px;}}
+
 /* Fixes for Wazi */
 .block   { word-wrap:break-word; overflow: hidden; }
 
