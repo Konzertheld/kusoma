@@ -132,7 +132,7 @@ document.onkeypress = function(event) {
 		case 106:
 		case 74:
 			// j = next
-			var next = $(".post.active").next(".unread");
+			var next = $(".post.active").nextAll(".unread").first();
 			if(next.length > 0) {
 				$("body,html").animate({scrollTop: next.offset().top - 20}, 100, 'linear', function() {
 					FeedReader.focus(next);
@@ -149,7 +149,7 @@ document.onkeypress = function(event) {
 		case 107:
 		case 75:
 			// k = previous
-			var prev = $(".post.active").prev(".unread");
+			var prev = $(".post.active").prevAll(".unread").first();
 			if(prev.length > 0) {
 				$("body,html").animate({scrollTop: prev.offset().top - 20}, 100, 'linear', function() {
 					FeedReader.focus(prev);
