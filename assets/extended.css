@@ -14,6 +14,8 @@ html { font-size: 90%; }
 .post.unread .statusimg { content:url('unread.png'); }
 .post.read .statusimg { content:url('read.png'); }
 .post.read h1 { font-weight: normal; }
+li.unread { font-weight: bold; }
+li.empty { font-weight: normal; }
 
 /* Markup to display posts nicer - aka work around poor HTML coming from feeds */
 img  { max-height: 400px; max-width: 400px; }/* @todo make this responsive */
