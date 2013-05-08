@@ -186,4 +186,10 @@ function pid(jqobject) {
 
 $(document).ready(function() {
 	$(".post").first().addClass("active");
+	$(".empty").hide();
+});
+
+$("article").live("click", function() {
+	FeedReader.unfocusAll();
+	$(this).addClass("active");
 });
