@@ -2,6 +2,18 @@ var FeedReader = {
 	request: null,
 	url: '',
 	nextFocus: undefined,
+	show_empty: false,
+	
+	toggle_empty: function()
+	{
+		if(this.show_empty) {
+			$(".empty").hide();
+		}
+		else {
+			$(".empty").show();
+		}
+		this.show_empty = !this.show_empty;
+	},
 
 	toggle: function(articleid)
 	{
