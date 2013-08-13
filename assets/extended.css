@@ -16,3 +16,7 @@ html { font-size: 90%; }
 .post.read h1 { font-weight: normal; }
 li.unread { font-weight: bold; }
 li.empty { font-weight: normal; }
+
+#feedreader .formcontrol {
+	float: left;
+}
